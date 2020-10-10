@@ -7,12 +7,12 @@
 
 <div class="container">
  <form action="<c:url value="/insert"/>" method="post">
- 	<div class="row"  style="margin-top: 10px; background-color: aliceblue;">
+ 	<div class="row col-md-6" style="margin-top: 10px; background-color: aliceblue;">
  	<div class="col-md-6">
  		<h2>Add Employee</h2>
  	</div>
  	<div class="col-md-6">
- 		<ul style="list-style-type:none;">
+ 		<ul style="list-style-type:none; margin-top: 10px; text-align: right;">
 			<li><a href="${pageContext.request.contextPath}/list" data-ajax="true">List</a>
 			</li>
 		</ul>
@@ -20,7 +20,7 @@
  	</div>
  	<div class="col-md-6">
 	 	<div class="form-group">
-	      <label for="name">Email:</label>
+	      <label for="name">Name:</label>
 	      <input type="text" class="form-control" id="name" placeholder="Enter name" name="name" value="">
 	    </div>
 	    <div class="form-group">

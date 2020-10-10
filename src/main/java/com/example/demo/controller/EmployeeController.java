@@ -11,16 +11,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.model.Employee;
 import com.example.demo.repository.EmployeeRepository;
+import com.example.demo.service.IEmployeeService;
+import com.google.gson.Gson;
 
 @RestController
 @RequestMapping("/")
-public class DemoController {
-	
+public class EmployeeController {
+	@Autowired
+	private IEmployeeService commonService;
 	@Autowired
 	private EmployeeRepository empRepository;
 	
@@ -57,11 +61,10 @@ public class DemoController {
 				empRepository.save(entity);
 			}
 		} catch (NullPointerException e) {
-			// TODO: handle exception
+			System.err.println(e.getMessage());
 		}
 		
 		return getAll(model);
-		
 	}
 	
 	@GetMapping("/delete/{id}")
@@ -80,6 +83,21 @@ public class DemoController {
 		model.addAttribute("entityList", entityList);
 		
 		return new ModelAndView("/list"); 
-		
+	}
+	
+	@GetMapping("/getEmployee")
+	@ResponseBody
+	public String getStationaryByStationaryCat(HttpServletRequest request) {
+		List<Employee> entity = null;
+		String json = null;
+		try {
+			entity = commonService.findEmployeeByDate(request.getParameter("date"));
+			json = new Gson().toJson(entity);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return json;
 	}
 }

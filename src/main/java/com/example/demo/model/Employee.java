@@ -1,10 +1,13 @@
 package com.example.demo.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 @Entity
@@ -19,6 +22,9 @@ public class Employee {
     
     @Column(name = "mobile")
     private String mobile;
+    
+    @Column(name = "create_date")
+    private Date createdDate;
 
 	public long getId() {
 		return id;
@@ -42,6 +48,19 @@ public class Employee {
 
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
+	}
+	
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	@PrePersist
+	private void preCreateFn() {
+		this.createdDate = new Date();
 	}
 	
     
